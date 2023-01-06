@@ -1,4 +1,4 @@
-export async function schemaValidation(schema) {
+export function validateSchema(schema) {
   return (req, res, next) => {
     const payload = req.body;
 
