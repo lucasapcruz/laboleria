@@ -37,7 +37,7 @@ export async function getOrders(req, res) {
             json_build_object('id', clients.id, 'name', clients.name, 'address', clients.address, 'phone', clients.phone) AS client,
             json_build_object('id', cakes.id, 'name', cakes.name, 'price', cakes.price , 'description', cakes.description, 'image', cakes.image) AS cake, 
             orders.id AS "orderId",
-            orders."createdAt",
+            TO_CHAR(orders."createdAt", 'YYYY-MM-DD HH24:MI') AS "createdAt",
             orders.quantity,
             orders."totalPrice"
             FROM
