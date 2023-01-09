@@ -69,3 +69,39 @@ export async function getOrders(req, res) {
         res.sendStatus(500);
     }
 }
+
+
+export async function getOrdersById(req, res) {
+    const {id} = req.params
+
+    try {
+        console.log(id)
+        const orders = await connection.query(`
+            SELECT
+            json_build_object('id', clients.id, 'name', clients.name, 'address', clients.address, 'phone', clients.phone) AS client,
+            json_build_object('id', cakes.id, 'name', cakes.name, 'price', cakes.price , 'description', cakes.description, 'image', cakes.image) AS cake, 
+            orders.id AS "orderId",
+            orders."createdAt",
+            orders.quantity,
+            orders."totalPrice"
+            FROM
+            orders
+            JOIN cakes
+            ON
+            orders."cakeId" = cakes.id
+            JOIN clients
+            ON
+            orders."clientId" = clients.id
+            WHERE orders.id = $1
+        `, [id]);
+
+        if(orders.rows.length < 1){
+            res.sendStatus(404)
+            return
+        }
+
+        res.status(200).send(orders.rows);
+    } catch (error) {
+        res.sendStatus(500);
+    }
+}
