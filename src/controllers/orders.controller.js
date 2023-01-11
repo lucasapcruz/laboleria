@@ -60,7 +60,7 @@ export async function getOrders(req, res) {
         }
 
         if(orders.rows.length < 1){
-            res.sendStatus(404)
+            res.status(404).send(orders.rows)
             return
         }
 
