@@ -6,7 +6,7 @@ export async function createTypeOfCake(req, res) {
     try {
         const typeOfCake = await connection.query("SELECT * FROM cakes WHERE name=$1", [name])
 
-        if (typeOfCake.length) {
+        if (typeOfCake.rows.length) {
             res.sendStatus(409)
             return
         }
