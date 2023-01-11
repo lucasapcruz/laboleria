@@ -6,14 +6,14 @@ export async function createOrder(req, res) {
     try {
         const clientsThatMatchId = await connection.query("SELECT * FROM clients WHERE id=$1", [clientId])
 
-        if (clientsThatMatchId.length) {
+        if (!clientsThatMatchId.rows.length) {
             res.sendStatus(404)
             return
         }
 
         const cakesThatMatchId = await connection.query("SELECT * FROM cakes WHERE id=$1", [cakeId])
 
-        if (cakesThatMatchId.length) {
+        if (!cakesThatMatchId.rows.length) {
             res.sendStatus(404)
             return
         }
