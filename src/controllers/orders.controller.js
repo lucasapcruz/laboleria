@@ -53,7 +53,7 @@ export async function getOrders(req, res) {
         let orders;
 
         if(date){
-            ordersQuery += `WHERE "createdAt" >= $1`
+            ordersQuery += `WHERE "createdAt"::date = $1`
             orders = await connection.query(ordersQuery, [date])
         }else{
             orders = await connection.query(ordersQuery);
