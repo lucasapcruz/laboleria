@@ -10,8 +10,6 @@ const connection = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-// types.setTypeParser(1700, function(val) {
-//   return parseFloat(val).toFixed(2)
-// })
+types.setTypeParser(1700, parseFloat)
 
 export { connection};
