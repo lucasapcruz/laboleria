@@ -75,7 +75,6 @@ export async function getOrdersById(req, res) {
     const {id} = req.params
 
     try {
-        console.log(id)
         const orders = await connection.query(`
             SELECT
             json_build_object('id', clients.id, 'name', clients.name, 'address', clients.address, 'phone', clients.phone) AS client,
